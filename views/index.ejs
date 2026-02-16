@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Payroll System</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Payroll Dashboard</h1>
+        <div class="header-actions">
+            <button class="btn-add" onclick="window.location.href='/add'">Add Employee</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                    <th>Basic Salary</th>
+                    <th>Tax (12%)</th>
+                    <th>Net Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% employees.forEach(employee => { %>
+                    <% const tax = employee.salary * 0.12; %>
+                    <% const netSalary = employee.salary - tax; %>
+                    <tr>
+                        <td><%= employee.id %></td>
+                        <td><%= employee.name %></td>
+                        <td><%= employee.position %></td>
+                        <td><%= employee.department %></td>
+                        <td>₹<%= employee.salary.toFixed(2) %></td>
+                        <td>₹<%= tax.toFixed(2) %></td>
+                        <td>₹<%= netSalary.toFixed(2) %></td>
+                        <td>
+                            <button class="btn-edit" onclick="window.location.href='/edit/<%= employee.id %>'">Edit</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
