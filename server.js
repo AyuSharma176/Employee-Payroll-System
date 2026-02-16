@@ -86,6 +86,24 @@ app.post("/edit/:id", async (req, res) => {
     res.status(404).send("Employee not found");
   }
 });
+
+app.delete("/delete/:id" , async (req, res) => {
+  const empId = parseInt(req.params.id);
+  const idx = employees.findIndex(emp => emp.id === empId);
+  if(idx!==-1){
+    employees.splice(idx,1);
+    try{
+      await writeFile("./employees.json", JSON.stringify(employees, null, 2));
+      res.json({message:"Employee deleted successfully"});
+    }catch(error){
+      console.error("Error deleting employee data:", error);
+      res.status(500).json({message:"Error deleting employee data"});
+    }
+  }
+    else{
+      res.status(404).json({message:"Employee not found"});
+    }
+  });
 app.get("/employees/:id", (req, res) => {
   const employeeId = parseInt(req.params.id);
   const employee = employees.find((emp) => emp.id === employeeId);
