@@ -25,11 +25,13 @@ let employees = [];
 })();
 
 app.get("/", (req, res) => {
-  res.render("index", { employees });
+  const sortedEmployees = [...employees].sort((a, b) => a.id - b.id);
+  res.render("index", { employees: sortedEmployees });
 });
 
 app.get("/employees", (req, res) => {
-  res.json(employees);
+  const sortedEmployees = [...employees].sort((a, b) => a.id - b.id);
+  res.json(sortedEmployees);
 });
 
 app.get("/add", (req, res) => {
