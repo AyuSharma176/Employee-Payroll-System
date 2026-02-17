@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Employee</title>
+    <title>Employee</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Edit Employee</h1>
+    <div class="edit-container">
+        <div class="add-heading">
+            <button class="btn-back" onclick="window.location.href='/'"><img src="/icons/back.svg" alt="Back"></button>
+            <h1>Edit Employee</h1>
+        </div>
         
         <form action="/edit/<%= employee.id %>" method="POST" class="employee-form">
             <div class="form-group">
@@ -21,9 +24,18 @@
                 <input type="text" id="position" name="position" value="<%= employee.position %>" required>
             </div>
             
-            <div class="form-group">
+            <div class="dropdown">
                 <label for="department">Department:</label>
-                <input type="text" id="department" name="department" value="<%= employee.department %>" required>
+                <select id="department" name="department" multiple required>
+                    <% 
+                    const departments = ['IT', 'HR', 'Finance', 'Marketing'];
+                    const selectedDepts = Array.isArray(employee.department) ? employee.department : [employee.department];
+                    %>
+                    <% departments.forEach(dept => { %>
+                        <option value="<%= dept %>" <%= selectedDepts.includes(dept) ? 'selected' : '' %>><%= dept %></option>
+                    <% }); %>
+                </select>
+                <small style="color: #666; display: block; margin-top: 5px;">Hold Ctrl to select multiple</small>
             </div>
             
             <div class="form-group">

@@ -1,71 +1,228 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+/* .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+
+} */
 
 h1 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
-
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.heading{
+    display: flex;
+    justify-content: center;
+}
 .header-actions {
-    margin-bottom: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
 
-button {
+/* button {
     padding: 8px 16px;
     margin-right: 5px;
     cursor: pointer;
+} */
+.btn-add {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.btn-main {
+  display: flex;
+  gap: 10px;
+}
+.btn-edit {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
 }
 
 th {
-    background: #f0f0f0;
+  background: #f0f0f0;
+}
+.dept-head {
+  font-weight: bold;
+  color: #333;
+  background-color: cadetblue;
+}
+.dropdown {
+  margin-bottom: 15px;
+  border-radius: 4px;
 }
 
+.dropdown label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.dropdown select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.dropdown select[multiple] {
+  min-height: 120px;
+  padding: 5px;
+}
+
+.dropdown select[multiple] option {
+  padding: 8px;
+  border-radius: 3px;
+  margin: 2px 0;
+}
+
+.dropdown select[multiple] option:hover {
+  background-color: #4caf50;
+  color: white;
+}
 .employee-form {
-    max-width: 500px;
+  max-width: 100%;
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 8px;
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .form-actions {
-    margin-top: 20px;
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
 }
 
 .form-actions button {
-    margin-right: 10px;
+  margin-right: 0;
 }
+
+.btn-submit {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+}
+
+.btn-cancel {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-cancel:hover {
+  background-color: #da190b;
+}
+
+.add-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.add-heading {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-back {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-back:hover {
+  background-color: #0b7dda;
+}
+
+.btn-back img {
+  width: 20px;
+  height: 20px;
+}
+
+.edit-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+

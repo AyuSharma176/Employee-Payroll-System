@@ -36,12 +36,23 @@ app.get("/add", (req, res) => {
   res.render("add");
 });
 
+function getNextID() {
+  if (employees.length === 0) return 1;
+  const existingIds = employees.map(e => e.id).sort((a, b) => a - b);
+  for (let i = 1; i <= existingIds[existingIds.length - 1]; i++) {
+    if (!existingIds.includes(i)) {
+      return i; 
+    }
+  }
+  return existingIds[existingIds.length - 1] + 1;
+}
+
 app.post("/add", async (req, res) => {
   const newEmployee = {
-    id: employees.length ? Math.max(...employees.map(e => e.id)) + 1 : 1,
+    id: getNextID(),
     name: req.body.name,
     position: req.body.position,
-    department: req.body.department,
+    department: Array.isArray(req.body.department) ? req.body.department : [req.body.department],
     salary: parseFloat(req.body.salary)
   };
   employees.push(newEmployee);
@@ -72,7 +83,7 @@ app.post("/edit/:id", async (req, res) => {
       id: employeeId,
       name: req.body.name,
       position: req.body.position,
-      department: req.body.department,
+      department: Array.isArray(req.body.department) ? req.body.department : [req.body.department],
       salary: parseFloat(req.body.salary)
     };
     try {
@@ -116,7 +127,7 @@ app.get("/employees/:id", (req, res) => {
 
 app.post("/employees", async (req, res) => {
     const newEmployee = req.body;
-    newEmployee.id = employees.length ? Math.max(...employees.map(e => e.id)) + 1 : 1;
+    newEmployee.id = getNextAvailableId();
     employees.push(newEmployee);
     try {
         await writeFile("./employees.json", JSON.stringify(employees, null, 2));

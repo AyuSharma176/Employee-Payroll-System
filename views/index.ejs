@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Payroll System</title>
+    <link rel="icon" href="/icons/logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Employee Payroll Dashboard</h1>
+        <div class="heading"> <h1 class="heading">Employee Payroll Dashboard</h1></div> 
         <div class="header-actions">
             <button class="btn-add" onclick="window.location.href='/add'">Add Employee</button>
         </div>
@@ -29,17 +30,18 @@
                 <% employees.forEach(employee => { %>
                     <% const tax = employee.salary * 0.12; %>
                     <% const netSalary = employee.salary - tax; %>
+                    <% const deptDisplay = Array.isArray(employee.department) ? employee.department.join(', ') : employee.department; %>
                     <tr>
                         <td><%= employee.id %></td>
                         <td><%= employee.name %></td>
                         <td><%= employee.position %></td>
-                        <td><%= employee.department %></td>
+                        <td><%= deptDisplay %></td>
                         <td>₹<%= employee.salary.toFixed(2) %></td>
                         <td>₹<%= tax.toFixed(2) %></td>
                         <td>₹<%= netSalary.toFixed(2) %></td>
-                        <td>
-                            <button class="btn-edit" onclick="window.location.href='/edit/<%= employee.id %>'">Edit</button>
-                            <button class="btn-delete" onclick="deleteEmployee('<%= employee.id %>')">Delete</button>
+                        <td class="btn-main">
+                            <button class="btn-edit" onclick="window.location.href='/edit/<%= employee.id %>'"><img src="/icons/edit.svg" ></button>
+                            <button class="btn-delete" onclick="deleteEmployee('<%= employee.id %>')"><img src="/icons/delete.svg" ></button>
                         </td>
                     </tr>
                 <% }); %>
