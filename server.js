@@ -39,14 +39,10 @@ app.get("/add", (req, res) => {
 });
 
 function getNextID() {
-  if (employees.length === 0) return 1;
-  const existingIds = employees.map(e => e.id).sort((a, b) => a - b);
-  for (let i = 1; i <= existingIds[existingIds.length - 1]; i++) {
-    if (!existingIds.includes(i)) {
-      return i; 
-    }
-  }
-  return existingIds[existingIds.length - 1] + 1;
+  if (employees.length === 0) return Math.floor(Math.random() * 10000);
+  const randomID = Math.floor(Math.random() * 10000);
+  return employees.some((emp) => emp.id === randomID) ? getNextID() : randomID;
+  // return Math.floor(randomID);
 }
 
 app.post("/add", async (req, res) => {
@@ -54,8 +50,10 @@ app.post("/add", async (req, res) => {
     id: getNextID(),
     name: req.body.name,
     position: req.body.position,
-    department: Array.isArray(req.body.department) ? req.body.department : [req.body.department],
-    salary: parseFloat(req.body.salary)
+    department: Array.isArray(req.body.department)
+      ? req.body.department
+      : [req.body.department],
+    salary: parseFloat(req.body.salary),
   };
   employees.push(newEmployee);
   try {
@@ -85,8 +83,10 @@ app.post("/edit/:id", async (req, res) => {
       id: employeeId,
       name: req.body.name,
       position: req.body.position,
-      department: Array.isArray(req.body.department) ? req.body.department : [req.body.department],
-      salary: parseFloat(req.body.salary)
+      department: Array.isArray(req.body.department)
+        ? req.body.department
+        : [req.body.department],
+      salary: parseFloat(req.body.salary),
     };
     try {
       await writeFile("./employees.json", JSON.stringify(employees, null, 2));
@@ -100,23 +100,22 @@ app.post("/edit/:id", async (req, res) => {
   }
 });
 
-app.delete("/delete/:id" , async (req, res) => {
+app.delete("/delete/:id", async (req, res) => {
   const empId = parseInt(req.params.id);
-  const idx = employees.findIndex(emp => emp.id === empId);
-  if(idx!==-1){
-    employees.splice(idx,1);
-    try{
+  const idx = employees.findIndex((emp) => emp.id === empId);
+  if (idx !== -1) {
+    employees.splice(idx, 1);
+    try {
       await writeFile("./employees.json", JSON.stringify(employees, null, 2));
-      res.json({message:"Employee deleted successfully"});
-    }catch(error){
+      res.json({ message: "Employee deleted successfully" });
+    } catch (error) {
       console.error("Error deleting employee data:", error);
-      res.status(500).json({message:"Error deleting employee data"});
+      res.status(500).json({ message: "Error deleting employee data" });
     }
+  } else {
+    res.status(404).json({ message: "Employee not found" });
   }
-    else{
-      res.status(404).json({message:"Employee not found"});
-    }
-  });
+});
 app.get("/employees/:id", (req, res) => {
   const employeeId = parseInt(req.params.id);
   const employee = employees.find((emp) => emp.id === employeeId);
@@ -128,14 +127,14 @@ app.get("/employees/:id", (req, res) => {
 });
 
 app.post("/employees", async (req, res) => {
-    const newEmployee = req.body;
-    newEmployee.id = getNextAvailableId();
-    employees.push(newEmployee);
-    try {
-        await writeFile("./employees.json", JSON.stringify(employees, null, 2));
-        res.status(201).json(newEmployee);
-    } catch (error) {
-        console.error("Error saving employee data:", error);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
+  const newEmployee = req.body;
+  newEmployee.id = getNextAvailableId();
+  employees.push(newEmployee);
+  try {
+    await writeFile("./employees.json", JSON.stringify(employees, null, 2));
+    res.status(201).json(newEmployee);
+  } catch (error) {
+    console.error("Error saving employee data:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
