@@ -55,6 +55,7 @@ app.post("/add", async (req, res) => {
     department: Array.isArray(req.body.department)
       ? req.body.department
       : [req.body.department],
+      gender:req.body.gender,
     salary: parseFloat(req.body.salary),
   };
   employees.push(newEmployee);
@@ -88,6 +89,7 @@ app.post("/edit/:id", async (req, res) => {
       department: Array.isArray(req.body.department)
         ? req.body.department
         : [req.body.department],
+        gender:req.body.gender,
       salary: parseFloat(req.body.salary),
     };
     try {

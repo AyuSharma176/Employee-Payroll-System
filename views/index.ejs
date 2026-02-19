@@ -99,6 +99,7 @@
                         <th>Name</th>
                         <th>Position</th>
                         <th>Department</th>
+                        <th>Gender</th>
                     <th>Basic Salary</th>
                     <th>Tax (12%)</th>
                     <th>Net Salary</th>
@@ -116,6 +117,7 @@
                         <td><%= employee.name %></td>
                         <td><%= employee.position %></td>
                         <td><%= deptDisplay %></td>
+                        <td><%= employee.gender %></td>
                         <td>₹<%= salary.toFixed(2) %></td>
                         <td>₹<%= tax.toFixed(2) %></td>
                         <td>₹<%= netSalary.toFixed(2) %></td>
