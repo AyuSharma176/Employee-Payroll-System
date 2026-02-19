@@ -25,7 +25,9 @@ let employees = [];
 })();
 
 app.get("/", (req, res) => {
-  const sortedEmployees = [...employees].sort((a, b) => a.id - b.id);
+  const sortedEmployees = [...employees].sort((a, b) => 
+    a.name.localeCompare(b.name)
+  );
   res.render("index", { employees: sortedEmployees });
 });
 
